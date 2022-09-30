@@ -1,11 +1,11 @@
-// Filename: linkedlist.cpp
+// Filename: string_LL.cpp
+// Contains the class linkedlist that represents a linked list
 // 
-// Contains the class linkedlistist that represents a linked list
-// 
-// Japheth Frolick, August 2019
-// C. Seshadhri, Jan 2020
+// In preperation for week 1 test.
+//
+// Sky Casey. 2022
 
-#include "linkedlistfunc.h"
+#include "string_LL.h"
 #include <cstdlib>
 #include <iostream>
 #include <vector> 
@@ -19,9 +19,8 @@ LinkedList :: LinkedList()
 	head = NULL;
 }
 
-// Insert(int val): Inserts the int val into list, at the head of the list. Note that there may be multiple copies of val in the list.
-// Input: Int to insert into the linked list
-// Output: Void, just inserts new Node
+// << INSERT >>
+// Inserts the int val into list, at the head of the list. Note that there may be multiple copies of val in the list.
 // Simply calls recursive function
 void LinkedList :: insert(int val)
 {
