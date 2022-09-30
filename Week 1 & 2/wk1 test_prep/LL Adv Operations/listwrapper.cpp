@@ -72,12 +72,19 @@ int main(int argc, char** argv)
      }
 
 
+// ====================== ADV OPERATIONS ===========================
 
+    /*
+     // << TEST deleteNode(Node*) >>
      cout << "<< TEST : Delete head->next with deleteNode(Node*) " << endl;
      myList.deleteNode(myList.head->next);
      cout << myList.print() << endl;
+    */
 
-
+    // << TEST deleteOccurence >>
+    cout << "<< TEST : Delete 2nd Occurence of 6 >>" << endl;
+    myList.deleteOccurrence(6, 2);
+    cout << myList.print() << endl; 
 
      
      input.close();

@@ -66,7 +66,7 @@ void LinkedList :: deleteOccurrence(int val, int occ_count, Node *curr)
 	if (occ_count == 0){
 		
 		// TODO: CREATE FUNC " deleteNode(Node *node) "
-
+        deleteNode(curr);
 		return;	
 	}
     
@@ -103,8 +103,8 @@ void LinkedList :: insert(int val)
     Node *to_add = new Node; // creates new Node
     to_add->data = val; // sets the data to hold input val
 
-    // TODO: Error here
-    head->prev = to_add; // set curr head prev node to new node`
+    if (head != NULL)
+    	head->prev = to_add; // set curr head prev node to new node`
 	
     to_add->next = head; // make to_add point to existing head
     head = to_add; // set head to to_add
