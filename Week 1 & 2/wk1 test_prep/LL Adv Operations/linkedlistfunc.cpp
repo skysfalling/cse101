@@ -39,24 +39,35 @@ void LinkedList :: deleteNode(Node* node)
 // <<<<<< DELETE Kth OCCURENCE >>>>>>>
 
 // deleteOccurrence(int val, int occ_count) : Deletes a specific occurence of the given value.
-// Input: Value to check , Occurrence count to delet
+// Input: Value to check , Occurrence count to delete
+//      -- if input occurrence is "-1", find last occurence
 // Output: Void, just deletes Node
 // Wrapper for recursive function
 void LinkedList :: deleteOccurrence(int val, int occ_count)
 {
-    deleteOccurrence(val, occ_count, head); // call recursive function
+    // check if occ_count is valid
+    if (occ_count == 0)
+    {
+        throw std::invalid_argument("Cannot delete 0th occurence of a value");
+        return;
+    }    
+
+    // check if deleteLastOccurrence
+    if (occ_count == -1)
+        deleteLastOccurrence(val, head, NULL);
+    else
+        deleteOccurrence(val, occ_count, head); // call recursive function
 }
 
 // deleteOccurrence(int val, int occ_count, Node *curr) : Deletes a specific occurence of the given value.
 // -- The occurence value will subtract one from itself for every occurence that is found in the Linked List
 //    Once the value reaches 0, the function will delete that Node 
-//
 // Input: Value to check , Occurrence count to delete, curr node in recursion
 // Output: Void, just deletes Node
 // Recursive function to find and delete specific occurence of node
 void LinkedList :: deleteOccurrence(int val, int occ_count, Node *curr)
 {
-    if (curr == NULL) // base case, list is empty
+    if (curr == NULL) // base case, end of list or list is empty
         return;
 
     if (curr->data == val) // curr node has val
@@ -64,8 +75,6 @@ void LinkedList :: deleteOccurrence(int val, int occ_count, Node *curr)
 	
 	// ** OCCURENCE FOUND **
 	if (occ_count == 0){
-		
-		// TODO: CREATE FUNC " deleteNode(Node *node) "
         deleteNode(curr);
 		return;	
 	}
@@ -73,17 +82,73 @@ void LinkedList :: deleteOccurrence(int val, int occ_count, Node *curr)
     deleteOccurrence(val, occ_count, curr->next); // recursive call to list starting from next node
 }
 
+// deleteLastOccurence(int val, Node *curr, Node* delNode)
+// Input : Value to check, curr node in recursion, node to delete once finished`
+// Output : Void , just deletes node
+// Recursive Function to delete last occurrence of node
+
+void LinkedList :: deleteLastOccurrence(int val, Node* curr, Node* delNode)
+{
+    // << CHECK FOR END OF LIST >>
+    if (curr == NULL) // end of list or list is empty
+    {
+        if (delNode != NULL) // if delNode is valid, delete
+        {
+           deleteNode(delNode); 
+        }
+        return;
+    }
+
+    // << SET delNode IF VALUE IS SAME >>
+    if (curr->data == val)
+    {
+        delNode = curr;
+    }
+
+    deleteLastOccurrence(val, curr->next, delNode);
+}
+
+
+// <<<<<<<<<<<<<<<<<< REVERSE LINKED LIST >>>>>>>>>>>>>>>>>>>>>>
+
+// TODO :  fix printing of list, currently printing last node of reversed list
+
+// reverse(Node* head)
+// Input : head node to start from, recursively uses this node as curr
+// Output : after recursion, returns new head of list
+
+Node* LinkedList :: reverse(Node* curr)
+{
+    if (curr == NULL || curr->next == NULL)
+    {
+        cout << "-- reverse : new head" + to_string(curr->data) << endl;
+        head = curr; // ** SET LIST HEAD TO CURR **
+        return curr;
+    }
+
+    /* reverse the rest of the list and put the first element at the end */
+    Node* rest = reverse(curr->next);
+    curr->next->next = curr;
+
+    //cout << "rest : " + to_string(rest->data) << endl;
+
+
+    // remove lingering pointer to incorrect node
+    // ( just placed node at end of list so currently it doesn't point to anything)
+    curr->next = NULL;
+
+    // return the new head node
+    return rest;
+}
 
 
 
 
 
 
-
-
+// ===================================================================================
 // ================================ GIVEN HELPER FUNCTIONS ===========================
-
-
+// ===================================================================================
 
 // Default constructor sets head and tail to null
 LinkedList :: LinkedList()
@@ -104,14 +169,17 @@ void LinkedList :: insert(int val)
     to_add->data = val; // sets the data to hold input val
 
     if (head != NULL)
-    	head->prev = to_add; // set curr head prev node to new node`
+    	head->prev = to_add; // set curr head prev node to new node
 	
     to_add->next = head; // make to_add point to existing head
     head = to_add; // set head to to_add
 
+    //cout << "<< TEST : head (" + to_string(head->data) + ") -> next (" + to_string(head->next->data) + ")" << endl; 
+    cout << "  >> HEAD : " + to_string(head->data) << endl;
+
+    if (head->next != NULL)
+        cout << "  >> NEXT : " + to_string(head->next->data) << endl;
 }
-
-
 
 
 // <<<<<<<<<< FIND FIRST VALUE >>>>>>>>>>

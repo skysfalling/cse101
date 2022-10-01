@@ -81,11 +81,17 @@ int main(int argc, char** argv)
      cout << myList.print() << endl;
     */
 
+    /*
     // << TEST deleteOccurence >>
-    cout << "<< TEST : Delete 2nd Occurence of 6 >>" << endl;
-    myList.deleteOccurrence(6, 2);
+    cout << "<< TEST : Delete LAST Occurence of 6 >>" << endl;
+    myList.deleteOccurrence(6, -1);
     cout << myList.print() << endl; 
+    */
 
+    // << TEST reverse list >>
+    cout << "<< TEST : Reverse List >>" << endl;
+    myList.reverse(myList.head);
+    cout << myList.print() << endl;
      
      input.close();
      output.close();

@@ -42,6 +42,10 @@ class LinkedList
 		// << delete specific occurence of value >>
 		void deleteOccurrence(int, int); // wrapper
 		void deleteOccurrence(int, int, Node*); // recursive function
+        void deleteLastOccurrence(int, Node*, Node*); // recursive function
+
+        // << reverse the linked list >>
+        Node* reverse(Node* head);
 
 		LinkedList(); // Default constructor sets head to null
 	        void insert(int); // insert int into list 
