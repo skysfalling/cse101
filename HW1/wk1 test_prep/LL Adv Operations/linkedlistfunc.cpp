@@ -19,22 +19,38 @@ using namespace std;
 // deleteNode(Node* node) : deletes a specific Node and connects that Node's prev and next Nodes 
 // Input : Node to delete
 // Output : Void , just deletes Node 
+
 void LinkedList :: deleteNode(Node* node)
 {
-    // base case, node has to be real value
-    if (node == NULL)
-    	return;
-    else
-        if (node->prev == NULL) // prev was supposed to be pointer of previous node. Since prev is NULL, curr is the head
-            head = head->next; // move head pointer to next value
-        else
-            node->prev->next = node->next; // delete curr from the list, by "skipping" over curr
-        
-	node->next = NULL; // set the next pointer to NULL, to prevent dangling references
-	delete(node); // delete given node
+    deleteNode(node, NULL, head);
 }
 
 
+void LinkedList :: deleteNode(Node* node, Node* prev, Node* curr)
+{
+    // base case, node has to be real value
+    if (node == NULL)
+    {
+        return;
+    }
+    // if node == curr
+    else if (node == curr)
+    {    
+        if (prev == NULL) // prev was supposed to be pointer of previous node. Since prev is NULL, curr is the head
+            head = head->next; // move head pointer to next value
+        else
+            prev->next = node->next; // delete curr from the list, by "skipping" over curr
+        
+	    node->next = NULL; // set the next pointer to NULL, to prevent dangling references
+	    delete(node); // delete given node
+        return;
+    }
+    // if node != curr, continue recursion 
+    else
+    {   
+        deleteNode(node, curr, curr->next);
+    }   
+}
 
 // <<<<<< DELETE Kth OCCURENCE >>>>>>>
 
@@ -109,9 +125,54 @@ void LinkedList :: deleteLastOccurrence(int val, Node* curr, Node* delNode)
 }
 
 
-// <<<<<<<<<<<<<<<<<< REVERSE LINKED LIST >>>>>>>>>>>>>>>>>>>>>>
+// deleteExtraOccurrences(int val)
+// Input : Value to check
+// Output : Void , just deletes node
+// Recursive function to delete all but first occurrence of val
 
-// TODO :  fix printing of list, currently printing last node of reversed list
+
+void LinkedList :: deleteExtraOccurrences(int val)
+{
+    deleteExtraOccurrences(val, 0, head);
+}
+
+// Input : Value to check , curr occurrence count, current node
+
+void LinkedList :: deleteExtraOccurrences(int val, int occ_count, Node *curr)
+{
+    // check if curr node is null
+    if (curr == NULL)
+    {
+        return;
+    }
+
+    // store next node just in case curr node gets deleted
+    Node* next = curr->next;
+    
+    // if curr node data == val, delete node
+    if (curr->data == val)
+    {
+        occ_count += 1;
+        
+        // if found more than one occurrence, delete node
+        if (occ_count > 1)
+        {
+            //delete node
+            deleteNode(curr);
+        }
+    }
+
+    // continue recursion
+    deleteExtraOccurrences(val, occ_count, next);
+}
+
+
+
+
+
+
+
+// <<<<<<<<<<<<<<<<<< REVERSE LINKED LIST >>>>>>>>>>>>>>>>>>>>>>
 
 // reverse(Node* head)
 // Input : head node to start from, recursively uses this node as curr
@@ -168,9 +229,6 @@ void LinkedList :: insert(int val)
     Node *to_add = new Node; // creates new Node
     to_add->data = val; // sets the data to hold input val
 
-    if (head != NULL)
-    	head->prev = to_add; // set curr head prev node to new node
-	
     to_add->next = head; // make to_add point to existing head
     head = to_add; // set head to to_add
 

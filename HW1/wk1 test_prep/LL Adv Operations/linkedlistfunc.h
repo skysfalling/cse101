@@ -26,7 +26,6 @@ using namespace std;
 struct Node
 {
 	int data;
-	Node *prev;
 	Node *next;
 };
 
@@ -38,7 +37,8 @@ class LinkedList
 		
 		// << delete specific node >>
 		void deleteNode(Node*);
-		
+		void deleteNode(Node*, Node*, Node*);
+
 		// << delete specific occurence of value >>
 		void deleteOccurrence(int, int); // wrapper
 		void deleteOccurrence(int, int, Node*); // recursive function
@@ -47,6 +47,10 @@ class LinkedList
         // << reverse the linked list >>
         Node* reverse(Node* head);
 
+        // << delete extra occurrences >>
+        void deleteExtraOccurrences(int);
+        void deleteExtraOccurrences(int, int, Node*);
+    
 		LinkedList(); // Default constructor sets head to null
 	        void insert(int); // insert int into list 
         	Node* find(int); // find int in list, and return pointer to node with that int. If there are multiple copies, this only finds one copy
