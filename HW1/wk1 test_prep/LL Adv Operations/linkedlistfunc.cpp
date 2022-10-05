@@ -37,10 +37,13 @@ void LinkedList :: deleteNode(Node* node, Node* prev, Node* curr)
     else if (node == curr)
     {    
         if (prev == NULL) // prev was supposed to be pointer of previous node. Since prev is NULL, curr is the head
+        {
             head = head->next; // move head pointer to next value
+        }
         else
+        {
             prev->next = node->next; // delete curr from the list, by "skipping" over curr
-        
+        }
 	    node->next = NULL; // set the next pointer to NULL, to prevent dangling references
 	    delete(node); // delete given node
         return;
@@ -70,9 +73,13 @@ void LinkedList :: deleteOccurrence(int val, int occ_count)
 
     // check if deleteLastOccurrence
     if (occ_count == -1)
+    {
         deleteLastOccurrence(val, head, NULL);
+    }
     else
+    {
         deleteOccurrence(val, occ_count, head); // call recursive function
+    }
 }
 
 // deleteOccurrence(int val, int occ_count, Node *curr) : Deletes a specific occurence of the given value.
@@ -84,11 +91,15 @@ void LinkedList :: deleteOccurrence(int val, int occ_count)
 void LinkedList :: deleteOccurrence(int val, int occ_count, Node *curr)
 {
     if (curr == NULL) // base case, end of list or list is empty
+    {
         return;
+    }
 
     if (curr->data == val) // curr node has val
+    {
         occ_count -= 1; // subtract one from occurence count
-	
+	}
+
 	// ** OCCURENCE FOUND **
 	if (occ_count == 0){
         deleteNode(curr);
