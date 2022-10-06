@@ -45,7 +45,11 @@ class LinkedList
         void deleteLastOccurrence(int, Node*, Node*); // recursive function
 
         // << reverse the linked list >>
-        Node* reverse(Node* head);
+        Node* reverse(int);
+        Node* reverse(int, Node*, Node*);
+
+        // << get node at index >>
+        Node* getListIndex(int);
 
         // << delete extra occurrences >>
         void deleteExtraOccurrences(int);

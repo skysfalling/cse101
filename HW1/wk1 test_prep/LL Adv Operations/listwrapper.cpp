@@ -59,14 +59,14 @@ int main(int argc, char** argv)
 	// ** INSERT **
         if(strcmp(op,"i") == 0) // insert into list
         {
-            cout << "Insert "+to_string(val) << endl;
+            //cout << "Insert "+to_string(val) << endl;
             myList.insert(val);
         }
 
 	// ** DELETE **
         if(strcmp(op,"d") == 0) // delete from list
         {
-            cout << "Delete "+to_string(val) << endl;
+            //cout << "Delete "+to_string(val) << endl;
             myList.deleteNode(val);
         }
      }
@@ -83,20 +83,23 @@ int main(int argc, char** argv)
 
     
     // << TEST deleteOccurence >>
-    cout << "<< TEST : Delete LAST Occurence of 6 >>" << endl;
+    cout << "\n<< TEST : Delete LAST Occurence of 6 >>" << endl;
     myList.deleteOccurrence(6, -1);
     cout << myList.print() << endl; 
     
-
+    // << TEST getIndex >>
+    cout << "\n<< TEST : Print index 5 >>" << endl;
+    Node* test = myList.getListIndex(5);
+    cout << to_string(test->data) << endl;
     
-    // << TEST reverse list >>
-    cout << "<< TEST : Reverse List >>" << endl;
-    myList.reverse(myList.head);
+    // << TEST reverse(5) >>
+    cout << "\n<< TEST : reverse(2) >>" << endl;
+    myList.reverse(2);
     cout << myList.print() << endl;
     
 
     // << TEST deleteExtraOccurences >>
-    cout << "<< TEST : deleteExtraOccurences -> val(6) >>" << endl;
+    cout << "\n<< TEST : deleteExtraOccurences -> val(6) >>" << endl;
     myList.deleteExtraOccurrences(6);
     cout << myList.print() << endl;
 

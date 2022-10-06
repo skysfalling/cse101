@@ -185,36 +185,64 @@ void LinkedList :: deleteExtraOccurrences(int val, int occ_count, Node *curr)
 
 // <<<<<<<<<<<<<<<<<< REVERSE LINKED LIST >>>>>>>>>>>>>>>>>>>>>>
 
+Node* LinkedList :: reverse(int count){
+    
+    // get beginning of end of the rest of the list
+    Node* endNode = getListIndex(count);
+    cout << "   endNode : " + to_string(endNode->data) << endl; 
+    
+    return reverse(count, head, endNode);    
+}
+
+
+
 // reverse(Node* head)
-// Input : head node to start from, recursively uses this node as curr
+// Input : current count to reverse // head node to start from, recursively uses this node as curr
 // Output : after recursion, returns new head of list
 
-Node* LinkedList :: reverse(Node* curr)
-{
-    if (curr == NULL || curr->next == NULL)
+Node* LinkedList :: reverse(int count, Node* curr, Node* endNode)
+{ 
+    // check if curr head is null , next is null , or count ran out
+    if (curr == NULL || curr->next == NULL || count <= 1)
     {
-        cout << "-- reverse : new head" + to_string(curr->data) << endl;
+        cout << "-- reverse : new head " + to_string(curr->data) << endl;
+    
         head = curr; // ** SET LIST HEAD TO CURR **
+
         return curr;
     }
 
+    // subtract from reverse count
+    count -= 1;
+
     /* reverse the rest of the list and put the first element at the end */
-    Node* rest = reverse(curr->next);
-    curr->next->next = curr;
+    Node* rest = reverse(count, curr->next, endNode); // new head
 
-    //cout << "rest : " + to_string(rest->data) << endl;
-
-
+    curr->next->next = curr; // move curr node to new spot below new head
+    
     // remove lingering pointer to incorrect node
     // ( just placed node at end of list so currently it doesn't point to anything)
-    curr->next = NULL;
+    curr->next = endNode;
+
 
     // return the new head node
     return rest;
 }
 
+Node* LinkedList :: getListIndex(int index)
+{
+    Node* curr = head;
 
+    while (index > -1 && curr != NULL)
+    {
+        if (index == 0) { return curr; }
 
+        curr = curr->next;
+        index -= 1;
+    }
+     
+    return NULL;
+}
 
 
 
@@ -244,10 +272,10 @@ void LinkedList :: insert(int val)
     head = to_add; // set head to to_add
 
     //cout << "<< TEST : head (" + to_string(head->data) + ") -> next (" + to_string(head->next->data) + ")" << endl; 
-    cout << "  >> HEAD : " + to_string(head->data) << endl;
+    //cout << "  >> HEAD : " + to_string(head->data) << endl;
 
-    if (head->next != NULL)
-        cout << "  >> NEXT : " + to_string(head->next->data) << endl;
+    //if (head->next != NULL)
+    //    cout << "  >> NEXT : " + to_string(head->next->data) << endl;
 }
 
 
